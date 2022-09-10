@@ -1,1 +1,1 @@
-error: cannot open file 'in.txt'
+usage: reverse <input> <output>

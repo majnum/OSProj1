@@ -16,10 +16,22 @@ int main(int argc, char *argv[])
         int readin = 0;
         //argv[0] is the code, argv[1] is the input file, argv[2] is the output file
 
+        //Check for the number of args
+        if((argc < 2) || (argc > 3)){
+                fprintf(stderr, "usage: reverse <input> <output>\n");
+                exit(1);
+        }
+
         stream = fopen(argv[1], "r");
+        if(stream == NULL){
+                fprintf(stderr, "error: cannot open file '%s'\n", argv[1]);
+                exit(1);
+        }
+
         if(argc == 3){
-                stream2 = fopen(argv[2], "r+");
-                //Do open file checks
+                stream2 = fopen(argv[2], "w");
+                //Checks File Opening
+                /*
                 if((stream2 == NULL)&&(stream == NULL)){
                         fprintf(stderr, "error: cannot open files '%s' and '%s' \n", argv[1], argv[2]);
                         exit(1);
@@ -28,17 +40,7 @@ int main(int argc, char *argv[])
                         fprintf(stderr, "error: cannot open file '%s'\n", argv[2]);
                         exit(1);
                 }
-        }
-        if(stream == NULL){
-                fprintf(stderr, "error: cannot open file '%s'\n", argv[1]);
-                exit(1);
-        }
-       
-
-        //Check for the number of args
-        if((argc < 2) || (argc > 3)){
-                fprintf(stderr, "usage: reverse <input> <output>\n");
-                exit(1);
+                */
         }
         
         struct node *tail = NULL;
@@ -58,16 +60,6 @@ int main(int argc, char *argv[])
                         tail = head;
                 }
         }
-
-        // while(tail != NULL){
-        //                 struct node* head;
-        //                 printf("%s",tail->lineBuffer);
-        //                 head = tail->prev;
-        //                 free(tail->lineBuffer);
-        //                 free(tail);
-        //                 tail = head;
-        //  }
-
         
         if (argc == 2) {
                 while(tail != NULL){
@@ -101,7 +93,6 @@ int main(int argc, char *argv[])
         }
         
         free(tail);
-        //free(currentLine);
         fclose(stream);
-        return 0;
+        exit(0);
 }
